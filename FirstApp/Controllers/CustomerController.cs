@@ -1,4 +1,6 @@
-﻿using FirstApp.Service;
+﻿using FirstApp.Dtos.request;
+using FirstApp.Dtos.response;
+using FirstApp.Service;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Models.Entity;
 
@@ -8,28 +10,44 @@ namespace FirstApp.Controllers
     [Route("api/v1/musteri")]
     public class CustomerController : ControllerBase
     {
+        ICustomerService _icustomerService ;
 
-        [HttpGet("liste")]
-        public List<Customer> getCustomers()
+        public CustomerController(ICustomerService icustomerService)
         {
-            CustomerService customerService = new CustomerService();
+            this._icustomerService = icustomerService;
+        }
 
-            List<Customer> list=customerService.customerList();
+        // 1. yöntem
+        [HttpGet("liste")]
+        public List<ListCustomerResponseDto> getCustomers()
+        {
+            return _icustomerService.customerList();
+        }
 
-            return list; 
+
+
+        // 2. yöntem
+        [HttpGet("uzunliste")]
+        public CustomerListeIcerenResponseDto getCustomersList()
+        {
+            return _icustomerService.customerList2();
         }
 
 
 
         [HttpGet("idyegöremusterigetir")]
-        public Customer GetCustomer(string id)
+        public GetCustomerByIdResponseDto GetCustomer(string id)
         {
-            CustomerService customerService = new CustomerService();
-
-           Customer customer= customerService.getCustomerById(id);
-
-            return customer; // servisten bir musteri dönmeli
+            return _icustomerService.getCustomerById(id);
         }
+
+        [HttpPost("ekle")]
+        public void CreateCustomer([FromBody] CreateCustomerRequestDto request)
+        {
+            _icustomerService.CreateCustomer(request);
+        }
+
+
 
 
     }
