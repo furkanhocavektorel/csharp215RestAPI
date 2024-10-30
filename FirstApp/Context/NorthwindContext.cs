@@ -10,7 +10,7 @@ namespace Mvc.Models.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=localhost;" +
-                "database=csharp215;Trusted_connection=false;uId=sa;password=Asd123asd.;");
+                "database=csharp240;Trusted_connection=true");
         }
 
         public DbSet<Product> Products { get; set; }

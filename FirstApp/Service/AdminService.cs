@@ -16,11 +16,11 @@ namespace FirstApp.Service
         public List<AdminListResponse> listAdmin()
         {
 
-            List<Admin> list = context.Admins.ToList();
+            var list = context.Admins.ToList();
 
-            List<AdminListResponse> listResponse = new List<AdminListResponse>();
+            var listResponse = new List<AdminListResponse>();
 
-            foreach (Admin admin in list)
+            foreach (var admin in list)
             {
                 AdminListResponse adminListResponse = new AdminListResponse();
                 adminListResponse.Id = admin.Id;
@@ -30,6 +30,11 @@ namespace FirstApp.Service
                 listResponse.Add(adminListResponse);
 
             }
+            listResponse.Add(new AdminListResponse());
+             
+
+
+
 
             return listResponse;
         }
